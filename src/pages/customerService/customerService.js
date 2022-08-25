@@ -5,62 +5,37 @@ import { Input, Select, Button, Table } from 'antd'; // 引入antd组件
 
 import { getAiServiceList } from '@/services/ant-design-pro/customer'; // 引入接口
 
-// input 输入 相关
-let ser = '';
-const inputChange = (e) => {
-  ser = e.target.value;
-};
-
-// select下拉框 相关
-const { Option } = Select;
-const state_options = [
-  {
-    value: 'REPLIED',
-    label: '未回复',
-  },
-  {
-    value: 'ANSWER',
-    label: '已回复',
-  },
-];
-const listItem = state_options.map((item) => {
-  return (
-    <Option key={item.value} value={item.value}>
-      {item.label}
-    </Option>
-  );
-});
-let state = '';
-const stateChange = (value) => {
-  state = value;
-};
-
-// 表格 相关
-const columns = [
-  {
-    title: '留言',
-    dataIndex: 'content',
-    key: 'content',
-    render: (id) => <a>{id}</a>,
-  },
-  {
-    title: '留言学生',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: '最后留言时间',
-    dataIndex: 'modified_time',
-    key: 'modified_time',
-  },
-  {
-    title: '状态',
-    dataIndex: 'status',
-    key: 'status',
-  },
-];
-
 export default () => {
+  // input 输入 相关
+  const [ser, setSer] = useState(''); // 搜索框
+  const inputChange = (e) => {
+    setSer(e.target.value)
+  };
+
+  // select下拉框 相关
+  const { Option } = Select;
+  const state_options = [
+    {
+      value: 'REPLIED',
+      label: '未回复',
+    },
+    {
+      value: 'ANSWER',
+      label: '已回复',
+    },
+  ];
+  const listItem = state_options.map((item) => {
+    return (
+      <Option key={item.value} value={item.value}>
+        {item.label}
+      </Option>
+    );
+  });
+  const [state, setState] = useState('');
+  const stateChange = (value) => {
+    setState(value)
+  };
+
   // mounted 相关
   // 相当于vue的created 和 mounted 钩子 一般用于请求数据 以及初始化数据
   // 以及监听事件 等等 一般不会在这里面写业务逻辑 业务逻辑写在其他函数里面 然后在这里面调用
@@ -89,6 +64,31 @@ export default () => {
       setIsLoading(false);
     });
   };
+
+  // 表格 相关
+  const columns = [
+    {
+      title: '留言',
+      dataIndex: 'content',
+      key: 'content',
+      render: (id) => <a>{id}</a>,
+    },
+    {
+      title: '留言学生',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: '最后留言时间',
+      dataIndex: 'modified_time',
+      key: 'modified_time',
+    },
+    {
+      title: '状态',
+      dataIndex: 'status',
+      key: 'status',
+    },
+  ];
 
   return (
     <>
