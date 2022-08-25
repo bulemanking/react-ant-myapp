@@ -9,7 +9,7 @@ export default () => {
   // input 输入 相关
   const [ser, setSer] = useState(''); // 搜索框
   const inputChange = (e) => {
-    setSer(e.target.value)
+    setSer(e.target.value);
   };
 
   // select下拉框 相关
@@ -33,22 +33,8 @@ export default () => {
   });
   const [state, setState] = useState('');
   const stateChange = (value) => {
-    setState(value)
+    setState(value);
   };
-
-  // mounted 相关
-  // 相当于vue的created 和 mounted 钩子 一般用于请求数据 以及初始化数据
-  // 以及监听事件 等等 一般不会在这里面写业务逻辑 业务逻辑写在其他函数里面 然后在这里面调用
-  const [tableData, setTableData] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    getAiServiceList().then((res) => {
-      if (res.code == 0) {
-        setTableData(res.data.results);
-      }
-      setIsLoading(false);
-    });
-  }, []);
 
   // 搜索 相关
   const searchTable = () => {
@@ -89,6 +75,20 @@ export default () => {
       key: 'status',
     },
   ];
+
+  // mounted 相关
+  // 相当于vue的created 和 mounted 钩子 一般用于请求数据 以及初始化数据
+  // 以及监听事件 等等 一般不会在这里面写业务逻辑 业务逻辑写在其他函数里面 然后在这里面调用
+  const [tableData, setTableData] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    getAiServiceList().then((res) => {
+      if (res.code == 0) {
+        setTableData(res.data.results);
+      }
+      setIsLoading(false);
+    });
+  }, []);
 
   return (
     <>
