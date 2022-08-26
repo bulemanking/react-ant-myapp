@@ -23,7 +23,8 @@ export default () => {
       value: 'ANSWER',
       label: '已回复',
     },
-  ]); // 下拉框
+  ]);
+  // 下拉框
   const listItem = state_options.map((item) => {
     return (
       <Option key={item.value} value={item.value}>
@@ -51,7 +52,7 @@ export default () => {
     });
   };
 
-  // 表格 相关
+  // 表格 相关 表格列
   const [columns, setColumns] = useState([
     {
       title: '留言',
@@ -74,7 +75,8 @@ export default () => {
       dataIndex: 'status',
       key: 'status',
     },
-  ]); // 表格列
+  ]);
+
   // 页面初始化数据 相关
   const [tableData, setTableData] = useState();
   const [isLoading, setIsLoading] = useState(true);
