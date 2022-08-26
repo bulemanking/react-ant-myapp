@@ -14,7 +14,7 @@ export default () => {
 
   // select下拉框 相关
   const { Option } = Select;
-  const state_options = [
+  const [state_option, setState_option] = useState([
     {
       value: 'REPLIED',
       label: '未回复',
@@ -23,7 +23,7 @@ export default () => {
       value: 'ANSWER',
       label: '已回复',
     },
-  ];
+  ]); // 下拉框
   const listItem = state_options.map((item) => {
     return (
       <Option key={item.value} value={item.value}>
@@ -37,13 +37,13 @@ export default () => {
   };
 
   // 搜索 相关
+  let params = {
+    student_name: ser,
+    page: 1,
+    status: state,
+  };
   const searchTable = () => {
     console.log('搜索');
-    let params = {
-      student_name: ser,
-      page: 1,
-      status: state,
-    };
     setIsLoading(true);
     getAiServiceList(params).then((res) => {
       setTableData(res.data.results);
@@ -52,7 +52,7 @@ export default () => {
   };
 
   // 表格 相关
-  const columns = [
+  const [columns, setColumns] = useState([
     {
       title: '留言',
       dataIndex: 'content',
@@ -74,20 +74,25 @@ export default () => {
       dataIndex: 'status',
       key: 'status',
     },
-  ];
-
-  // mounted 相关
-  // 相当于vue的created 和 mounted 钩子 一般用于请求数据 以及初始化数据
-  // 以及监听事件 等等 一般不会在这里面写业务逻辑 业务逻辑写在其他函数里面 然后在这里面调用
+  ]); // 表格列
+  // 页面初始化数据 相关
   const [tableData, setTableData] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
+  const getTableData = () => {
     getAiServiceList().then((res) => {
-      if (res.code == 0) {
-        setTableData(res.data.results);
-      }
+      setTableData(res.data.results);
       setIsLoading(false);
     });
+  };
+  // useEffect 相当于vue的created 和 mounted 钩子 一般用于请求数据 以及初始化数据
+  // 以及监听事件 等等 一般不会在这里面写业务逻辑 业务逻辑写在其他函数里面 然后在这里面调用
+  useEffect(() => {
+    getTableData();
+    return () => {
+      // 就是这个 return 相当于vue的beforeDestroy unmount 钩子
+      // 相关 一般用于清除监听事件 等等 一般不会在这里面写业务逻辑 业务逻辑写在其他函数里面 然后在这里面调用
+      console.log('人工客服页面卸载了');
+    };
   }, []);
 
   return (
