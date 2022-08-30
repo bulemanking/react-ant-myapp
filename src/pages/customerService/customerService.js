@@ -107,6 +107,8 @@ export default () => {
       title: '留言',
       dataIndex: 'content',
       key: 'content',
+      width: 300,
+      ellipsis: true,
       render: (id) => <a>{id}</a>,
     },
     {
