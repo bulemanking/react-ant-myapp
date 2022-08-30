@@ -199,7 +199,12 @@ export default () => {
         <div className={styles.table_content}>
           <Table loading={isLoading} columns={columns} dataSource={tableData} pagination={false} />
           <div className={styles.page}>
-            <Pagination total={total} showSizeChanger={false} onChange={handlePage} />
+            <Pagination
+              defaultPageSize={15}
+              total={total}
+              showSizeChanger={false}
+              onChange={handlePage}
+            />
           </div>
         </div>
       </div>
