@@ -3,6 +3,7 @@ import styles from './customerService.less'; // 引入页面样式文件
 import React, { useEffect, useState } from 'react';
 import { Input, Select, Button, Table, Pagination, message } from 'antd'; // 引入antd组件
 import { useMount, useUnmount } from 'ahooks'; // 引入ahooks钩子函数
+import { useModel } from 'umi'; // 引入umi的useModel
 
 import { getAiServiceList } from '@/services/ant-design-pro/customer'; // 引入接口
 
@@ -173,13 +174,27 @@ export default () => {
   useMount(() => {
     getTableData();
     message.info('我是mounted');
+    getMsg();
+    getInfo();
   });
   /**
    * 这里是 unmount 钩子
    */
   useUnmount(() => {
-    message.info('我是unmount--卸载页面');
+    message.info('我是unmount--卸载');
   });
+
+  /**
+   * 获取 共享数据 useModel 相关
+   */
+  const msg = useModel('demo');
+  const getMsg = () => {
+    console.log(msg);
+  };
+  const info = useModel('userInfo');
+  const getInfo = () => {
+    console.log(info);
+  };
   return (
     <>
       <h1>人工客服</h1>
